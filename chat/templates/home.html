@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat App</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Chat App</h1>
+    <p><a href="{% url 'chat:conversas' %}">Lista de Conversas</a></p>
+    <!-- Substitua 'chat:conversas' pelo nome da rota definida no seu arquivo urls.py para a lista de conversas -->
+    <p><a href="{% url 'chat:conversando' conversation_id %}">Detalhes da Conversa</a></p>
+    <!-- Substitua 'chat:conversando' pelo nome da rota definida no seu arquivo urls.py para os detalhes da conversa -->
+    <!-- Substitua 'conversation_id' pela variável ou id da conversa específica -->
+</body>
+</html>

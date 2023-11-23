@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Conversas</title>
+</head>
+<body>
+    <h1>Lista de Conversas</h1>
+    <ul>
+        {% for conversation in conversations %}
+            <li><a href="{% url 'chat:conversas' conversation.pk %}">Conversa {{ conversation.pk }}</a></li>
+            <!-- Substitua 'chat:conversation-detail' pelo nome da rota definida no seu arquivo urls.py para os detalhes da conversa -->
+            <!-- Aqui estamos usando 'conversation.pk' para passar o ID da conversa -->
+        {% endfor %}
+    </ul>
+</body>
+</html>

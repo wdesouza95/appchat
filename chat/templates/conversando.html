@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Conversa</title>
+</head>
+<body>
+    <h1>Detalhes da Conversa</h1>
+    <h2>Conversa {{ conversation.id }}</h2>
+    <ul>
+        {% for message in messages %}
+            <li>{{ message.sender }}: {{ message.content }}</li>
+            <!-- Exibindo as mensagens da conversa -->
+        {% endfor %}
+    </ul>
+
+    <div id="chat-messages"></div>
+    <input type="text" id="message-input" placeholder="Digite sua mensagem">
+    <button onclick="sendMessage()">Enviar</button>
+
+        <script>
+            const conversationId = {{ conversation.id }};  // ID da conversa dinamicamente obtido do Django
+
+            const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${conversationId}/`);
+
+            chatSocket.onopen = function(event) {
+                console.log('Conexão WebSocket aberta.');
+            };
+
+            chatSocket.onmessage = function(event) {
+                const message = event.data;
+                displayMessage(message);
+            };
+
+            chatSocket.onclose = function(event) {
+                console.log('Conexão WebSocket fechada.');
+            };
+
+            function sendMessage() {
+                const messageInput = document.getElementById('message-input');
+                const message = messageInput.value;
+                chatSocket.send(message);
+                messageInput.value = '';
+            }
+
+            function displayMessage(message) {
+                const chatMessages = document.getElementById('chat-messages');
+                const messageElement = document.createElement('p');
+                messageElement.innerText = message;
+                chatMessages.appendChild(messageElement);
+            }
+    </script>
+
+</body>
+</html>
